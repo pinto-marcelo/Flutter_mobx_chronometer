@@ -4,9 +4,7 @@ import 'package:fluttermobx/pages/Pomodoro.dart';
 import 'package:fluttermobx/store/pomodoro.store.dart';
 import 'package:provider/provider.dart';
 
-//import 'package:fluttermobx/store/contador.store.dart';
-//import 'package:mobx/mobx.dart';
-//30:42 https://www.youtube.com/watch?v=LeRjIY4n2Vk&list=PL82McGnqAnW092ycZjzZw7chCZvNet7g3&index=2&t=965s
+//01:15:00 https://www.youtube.com/watch?v=LeRjIY4n2Vk&list=PL82McGnqAnW092ycZjzZw7chCZvNet7g3&index=2&t=965s
 
 void main() {
   runApp(const MyApp());

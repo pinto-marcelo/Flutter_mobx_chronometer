@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:fluttermobx/components/Cronometro.dart';
 import 'package:provider/provider.dart';
 
@@ -16,27 +17,39 @@ class Pomodoro extends StatelessWidget {
     final store = Provider.of<PomodoroStore>(context);
     return Scaffold(
       body: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-        Expanded(
+        const Expanded(
           child: Cronometro(),
         ),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 40),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              EntradaTempo(
-                valor: store.tempoTrabalho,
-                titulo: "Trabalho",
-                inc: store.incrementarTempoTrabalho,
-                dec: store.decrementarTempoTrabalho,
-              ),
-              EntradaTempo(
-                valor: store.tempoDescanso,
-                titulo: "Descanso",
-                inc: store.incrementarTempoDescanso,
-                dec: store.decrementarTempoDescanso,
-              ),
-            ],
+          child: Observer(
+            builder: (_) {
+              return Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  EntradaTempo(
+                    valor: store.tempoTrabalho,
+                    titulo: "Trabalho",
+                    inc: store.iniciado && store.estaTrabalhando()
+                        ? null
+                        : store.incrementarTempoTrabalho,
+                    dec: store.iniciado && store.estaTrabalhando()
+                        ? null
+                        : store.decrementarTempoTrabalho,
+                  ),
+                  EntradaTempo(
+                    valor: store.tempoDescanso,
+                    titulo: "Descanso",
+                    inc: store.iniciado && store.estaDescansando()
+                        ? null
+                        : store.incrementarTempoDescanso,
+                    dec: store.iniciado && store.estaDescansando()
+                        ? null
+                        : store.decrementarTempoDescanso,
+                  ),
+                ],
+              );
+            },
           ),
         ),
       ]),

@@ -2,6 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:provider/provider.dart';
+
+import '../store/pomodoro.store.dart';
 
 class EntradaTempo extends StatelessWidget {
   final String titulo;
@@ -19,13 +22,14 @@ class EntradaTempo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final store = Provider.of<PomodoroStore>(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Text(
           this.titulo,
           style: TextStyle(
-            fontSize: 25,
+            fontSize: 18,
           ),
         ),
         SizedBox(height: 10),
@@ -33,33 +37,35 @@ class EntradaTempo extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             ElevatedButton(
-              onPressed: this.dec,
+              onPressed: dec,
               child: Icon(
                 Icons.arrow_downward,
                 color: Colors.white,
+                size: 18,
               ),
               style: ElevatedButton.styleFrom(
                 shape: CircleBorder(),
                 padding: EdgeInsets.all(15),
-                primary: Colors.red,
+                primary: store.estaTrabalhando() ? Colors.red : Colors.green,
               ),
             ),
             Text(
               "${this.valor} min",
               style: TextStyle(
-                fontSize: 18,
+                fontSize: 16,
               ),
             ),
             ElevatedButton(
-              onPressed: this.dec,
+              onPressed: inc,
               child: Icon(
                 Icons.arrow_upward,
                 color: Colors.white,
+                size: 18,
               ),
               style: ElevatedButton.styleFrom(
                 shape: CircleBorder(),
                 padding: EdgeInsets.all(15),
-                primary: Colors.red,
+                primary: store.estaTrabalhando() ? Colors.red : Colors.green,
               ),
             ),
           ],
